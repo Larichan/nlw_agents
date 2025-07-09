@@ -7,6 +7,7 @@
     "start": "node --env-file .env --loader ts-node/esm --no-warnings src/server.ts",
     "dev": "node --env-file .env --loader ts-node/esm --no-warnings --watch src/server.ts",
     "seed": "node --env-file .env --loader ts-node/esm --no-warnings src/db/seed.ts",
+    "generate": "npx drizzle-kit generate",
     "migrate": "npx drizzle-kit migrate"
   },
   "keywords": [],
