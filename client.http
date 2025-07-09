@@ -2,4 +2,16 @@
 
 GET {{baseUrl}}/health
 
+###
+
 GET {{baseUrl}}/rooms
+
+###
+
+POST {{baseUrl}}/rooms
+Content-Type: application/json
+
+{
+    "name": "New Room",
+    "description": "This is a new room created via API."
+}
