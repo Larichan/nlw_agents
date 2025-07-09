@@ -2,7 +2,6 @@ import { FastifyPluginCallbackZod } from "fastify-type-provider-zod"
 import { z } from "zod/v4"
 import { db } from "../../connection.ts"
 import { schema } from "../../schema/index.ts"
-import { desc, name } from "drizzle-orm"
 
 export const createRoomRoute: FastifyPluginCallbackZod = (app) => {
     app.post("/rooms", {
