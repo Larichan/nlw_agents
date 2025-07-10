@@ -3,25 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Badge } from "./ui/badge"
 import { formatRelative } from "@/utils/format-date"
 import { ArrowRight } from "lucide-react"
-import { useQuery } from "@tanstack/react-query"
-
-type GetRoomsAPIResponse = Array<{
-    id: string;
-    name: string;
-    questionsCount: number;
-    createdAt: string;
-}>
+import { useGetRooms } from "@/http/use-get-rooms"
 
 export function RoomList() {
-    const { data, isLoading } = useQuery({
-        queryKey: ['get-rooms'],
-        queryFn: async () => {
-            const response = await fetch('http://localhost:8080/rooms');
-            const result: GetRoomsAPIResponse = await response.json();
-
-            return result;
-        }
-    });
+    const { data, isLoading } = useGetRooms();
 
     return (
         <Card>
