@@ -15,6 +15,13 @@
       "when": 1752076977488,
       "tag": "0001_nice_karnak",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752353417928,
+      "tag": "0002_demonic_diamondback",
+      "breakpoints": true
     }
   ]
 }
