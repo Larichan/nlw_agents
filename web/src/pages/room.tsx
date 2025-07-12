@@ -1,8 +1,8 @@
 import { QuestionForm } from "@/components/question-form";
-import { QuestionItem } from "@/components/question-item";
+import { QuestionsList } from "@/components/questions-list";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Radio } from "lucide-react";
-import { Link, Navigate, useParams } from "react-router-dom"
+import { Link, Navigate, useParams } from "react-router-dom";
 
 type RoomParams = {
     roomId: string;
@@ -46,22 +46,7 @@ export function Room() {
                     <QuestionForm roomId={roomId} />
                 </div>
 
-                <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-semibold text-foreground">
-                            Perguntas e Respostas
-                        </h2>
-                    </div>
-
-                    <QuestionItem
-                        question={{
-                            id: "1",
-                            question: "Como funciona a IA?",
-                            answer: "A IA utiliza algoritmos complexos para processar dados e gerar respostas.",
-                            createdAt: new Date().toISOString(),
-                        }}
-                    />
-                </div>
+                <QuestionsList roomId={roomId} />
             </div>
         </div>
     )

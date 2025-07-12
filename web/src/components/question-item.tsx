@@ -5,7 +5,7 @@ import { formatRelative } from "@/utils/format-date";
 interface Question {
     id: string;
     question: string;
-    answer: string;
+    answer?: string | null;
     createdAt: string;
 }
 

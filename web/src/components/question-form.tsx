@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
+import { useCreateQuestion } from "@/http/use-create-question";
 
 const createQuestionSchema = z.object({
     question: z.string().min(1, "Pergunta é obrigatória")
@@ -20,6 +21,8 @@ type QuestionFormProps = {
 
 export function QuestionForm({ roomId }: QuestionFormProps) {
 
+    const { mutateAsync: createQuestion } = useCreateQuestion(roomId);
+
     const form = useForm<CreateQuestionFormData>({
         resolver: zodResolver(createQuestionSchema),
         defaultValues: {
@@ -27,8 +30,9 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
         }
     })
 
-    function handleCreateQuestion(data: CreateQuestionFormData) {
-        //TODO: Implement question creation logic
+    async function handleCreateQuestion(data: CreateQuestionFormData) {
+        await createQuestion(data)
+        form.reset();
     }
 
     return (
