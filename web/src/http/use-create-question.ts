@@ -20,7 +20,7 @@ export function useCreateQuestion(roomId: string) {
             return result;
         },
         onMutate({ question }) {
-            const previousQuestionList = queryClient.getQueryData<GetRoomQuestionsResponse>(['get-questions', roomId]) ?? [];
+            const previousQuestionList = queryClient.getQueryData<GetRoomQuestionsResponse>(['get-room-questions', roomId]) ?? [];
 
             const newQuestion = {
                 id: crypto.randomUUID(),
@@ -30,7 +30,7 @@ export function useCreateQuestion(roomId: string) {
                 isGeneratingAnswer: true,
             }
 
-            queryClient.setQueryData<GetRoomQuestionsResponse>(['get-questions', roomId],
+            queryClient.setQueryData<GetRoomQuestionsResponse>(['get-room-questions', roomId],
                 [newQuestion, ...previousQuestionList])
 
             return { newQuestion, previousQuestionList }
@@ -38,7 +38,7 @@ export function useCreateQuestion(roomId: string) {
         onSuccess: (data, _variables, context) => {
             // queryClient.invalidateQueries({ queryKey: ['get-questions', roomId] });
             queryClient.setQueryData<GetRoomQuestionsResponse>(
-                ['get-questions', roomId],
+                ['get-room-questions', roomId],
                 (questions) => {
                     if (!questions || !context.newQuestion)
                         return questions
@@ -60,7 +60,7 @@ export function useCreateQuestion(roomId: string) {
         },
         onError(_error, _variables, context) {
             if (context?.previousQuestionList) {
-                queryClient.setQueryData<GetRoomQuestionsResponse>(['get-questions', roomId], context.previousQuestionList)
+                queryClient.setQueryData<GetRoomQuestionsResponse>(['get-room-questions', roomId], context.previousQuestionList)
             }
         }
     })
