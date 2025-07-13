@@ -1,4 +1,4 @@
-import { QuestionForm } from "@/components/question-form";
+import { CreateQuestionForm } from "@/components/create-question-form";
 import { QuestionsList } from "@/components/questions-list";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Radio } from "lucide-react";
@@ -43,7 +43,7 @@ export function Room() {
                 </div>
 
                 <div className="mb-8">
-                    <QuestionForm roomId={roomId} />
+                    <CreateQuestionForm roomId={roomId} />
                 </div>
 
                 <QuestionsList roomId={roomId} />

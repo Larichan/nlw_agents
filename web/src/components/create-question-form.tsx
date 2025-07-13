@@ -19,11 +19,11 @@ type QuestionFormProps = {
     roomId: string;
 };
 
-export function QuestionForm({ roomId }: QuestionFormProps) {
+export function CreateQuestionForm({ roomId }: QuestionFormProps) {
 
     const { mutateAsync: createQuestion } = useCreateQuestion(roomId);
 
-    const form = useForm<CreateQuestionFormData>({
+    const createQuestionForm = useForm<CreateQuestionFormData>({
         resolver: zodResolver(createQuestionSchema),
         defaultValues: {
             question: "",
@@ -32,8 +32,10 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
 
     async function handleCreateQuestion(data: CreateQuestionFormData) {
         await createQuestion(data)
-        form.reset();
+        createQuestionForm.reset();
     }
+
+    const { isSubmitting } = createQuestionForm.formState
 
     return (
         <Card>
@@ -42,16 +44,17 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
                 <CardDescription>Digite sua pergunta abaixo para receber uma resposta gerada por IA</CardDescription>
             </CardHeader>
             <CardContent>
-                <Form {...form}>
-                    <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(handleCreateQuestion)}>
+                <Form {...createQuestionForm}>
+                    <form className="flex flex-col gap-4" onSubmit={createQuestionForm.handleSubmit(handleCreateQuestion)}>
                         <FormField
-                            control={form.control}
+                            control={createQuestionForm.control}
                             name="question"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Sua pergunta</FormLabel>
                                     <FormControl>
                                         <Textarea
+                                            disabled={isSubmitting}
                                             className="min-h-[100px]"
                                             placeholder="O que gostaria de saber?"
                                             {...field}
@@ -61,7 +64,7 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit">Enviar pergunta</Button>
+                        <Button disabled={isSubmitting} type="submit">Enviar pergunta</Button>
                     </form>
                 </Form>
             </CardContent>
