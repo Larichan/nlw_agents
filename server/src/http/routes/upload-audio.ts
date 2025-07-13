@@ -12,9 +12,9 @@ export const uploadAudioRoute: FastifyPluginCallbackZod = (app) => {
             }),
         }
     },
-        async ({ params, file }, reply) => {
-            const { roomId } = params
-            const audio = await file()
+        async (request, reply) => {
+            const { roomId } = request.params
+            const audio = await request.file()
 
             if (!audio) {
                 throw new Error("No audio file provided")
